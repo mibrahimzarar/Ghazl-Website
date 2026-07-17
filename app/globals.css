@@ -1,26 +1,440 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-deep: #0e0e12;
+  --bg-charcoal: #17171d;
+  --bg-elevated: #1f1f27;
+  --gradient-start: #6b4e8c;
+  --gradient-mid: #b87b8a;
+  --gradient-end: #d4a574;
+  --text-primary: #f7f3ee;
+  --text-muted: #a8a29e;
+  --gold: #c9a96e;
+  --glass: rgba(255, 255, 255, 0.055);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-highlight: rgba(255, 255, 255, 0.18);
+  --glass-specular: rgba(255, 255, 255, 0.28);
+  --liquid-glow: rgba(184, 123, 138, 0.18);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg-deep: var(--bg-deep);
+  --color-bg-charcoal: var(--bg-charcoal);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-gradient-start: var(--gradient-start);
+  --color-gradient-mid: var(--gradient-mid);
+  --color-gradient-end: var(--gradient-end);
+  --color-text-primary: var(--text-primary);
+  --color-text-muted: var(--text-muted);
+  --color-gold: var(--gold);
+  --font-display: var(--font-manrope);
+  --font-body: var(--font-manrope);
+  --font-arabic: var(--font-amiri);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(ellipse 90% 55% at 10% -5%, rgba(107, 78, 140, 0.38), transparent 58%),
+    radial-gradient(ellipse 80% 50% at 95% 5%, rgba(184, 123, 138, 0.28), transparent 52%),
+    radial-gradient(ellipse 70% 45% at 50% 100%, rgba(212, 165, 116, 0.2), transparent 55%),
+    radial-gradient(ellipse 50% 35% at 70% 45%, rgba(107, 78, 140, 0.12), transparent 60%),
+    var(--bg-deep);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: 100%;
+}
+
+.font-arabic {
+  font-family: var(--font-amiri), "Amiri", "Noto Naskh Arabic", serif;
+}
+
+::selection {
+  background: rgba(107, 78, 140, 0.4);
+  color: var(--text-primary);
+}
+
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start) 0%,
+    var(--gradient-mid) 50%,
+    var(--gradient-end) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-slogan {
+  background: linear-gradient(
+    135deg,
+    #fff7ee 0%,
+    #efc0ce 42%,
+    #f5c487 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.55));
+}
+
+.gradient-border {
+  position: relative;
+  background: rgba(28, 28, 36, 0.55);
+  border-radius: 1rem;
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.35),
+    var(--gradient-start),
+    var(--gradient-mid),
+    var(--gradient-end),
+    rgba(255, 255, 255, 0.2)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Liquid glass surfaces */
+.glass {
+  position: relative;
+  background:
+    linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.07) 40%,
+      rgba(184, 123, 138, 0.06) 100%
+    ),
+    rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.38),
+    0 0 0 1px rgba(184, 123, 138, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.22) 0%,
+    transparent 32%,
+    transparent 60%,
+    rgba(212, 165, 116, 0.08) 100%
+  );
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.glass > * {
+  position: relative;
+  z-index: 1;
+}
+
+.glass-strong {
+  position: relative;
+  background:
+    linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0.09) 45%,
+      rgba(107, 78, 140, 0.1) 100%
+    ),
+    rgba(22, 22, 28, 0.42);
+  backdrop-filter: blur(40px) saturate(190%);
+  -webkit-backdrop-filter: blur(40px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow:
+    0 14px 48px rgba(0, 0, 0, 0.42),
+    0 0 40px rgba(107, 78, 140, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+}
+
+.glass-strong::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0.26) 0%,
+    transparent 36%,
+    transparent 58%,
+    rgba(184, 123, 138, 0.14) 100%
+  );
+  pointer-events: none;
+}
+
+.glass-strong > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Elegant 3D liquid glass buttons */
+.btn-3d {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(184, 123, 138, 0.85) 38%,
+    rgba(107, 78, 140, 0.95) 100%
+  );
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.35) inset,
+    0 -2px 0 rgba(0, 0, 0, 0.25) inset,
+    0 8px 20px rgba(107, 78, 140, 0.45),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(107, 78, 140, 0.25);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  transform: translateY(0);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+}
+
+.btn-3d::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.08) 28%,
+    transparent 55%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.btn-3d::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -20%;
+  width: 60%;
+  height: 90%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.35) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.btn-3d > * {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-3d:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.4) inset,
+    0 -2px 0 rgba(0, 0, 0, 0.22) inset,
+    0 12px 28px rgba(184, 123, 138, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.28),
+    0 0 0 1px rgba(184, 123, 138, 0.3);
+}
+
+.btn-3d:active {
+  transform: translateY(1px);
+  filter: brightness(0.98);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.2) inset,
+    0 1px 0 rgba(0, 0, 0, 0.2) inset,
+    0 3px 10px rgba(107, 78, 140, 0.35),
+    0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.btn-glass {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background:
+    linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.04) 100%
+    ),
+    rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.2) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.15) inset,
+    0 6px 16px rgba(0, 0, 0, 0.25);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.btn-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    transparent 45%
+  );
+  pointer-events: none;
+}
+
+.btn-glass > * {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-glass:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.3);
+  background:
+    linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.06) 100%
+    ),
+    rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.28) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.12) inset,
+    0 10px 22px rgba(0, 0, 0, 0.3);
+}
+
+.btn-glass:active {
+  transform: translateY(1px);
+}
+
+.grain-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes ribbon-drift {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(20px) rotate(2deg);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-ribbon-drift {
+  animation: none;
+}
+
+.animate-pulse-glow {
+  animation: none;
+  opacity: 0.42;
+}
+
+.prose-legal h2 {
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .prose-legal h2 {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+  }
+}
+
+.prose-legal p {
+  color: var(--text-muted);
+  line-height: 1.75;
+  white-space: pre-line;
+  font-size: 0.95rem;
+}
+
+@media (min-width: 640px) {
+  .prose-legal p {
+    font-size: 1rem;
+  }
 }
