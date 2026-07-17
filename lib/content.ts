@@ -4,7 +4,7 @@ export const homeContent = {
   hero: {
     headline: "Two Threads, One Beautiful Story",
     subheadline:
-      "Ghazl is a halal marriage app for Muslims who seek connection with sincerity — not casual dating, but a path toward nikah built on respect and intention.",
+      "A halal marriage app for Muslims seeking nikah with sincerity, respect, and intention — not casual dating.",
     primaryCta: "Download Ghazl",
     secondaryCta: "Learn More",
   },

@@ -68,7 +68,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="mx-auto mt-5 max-w-2xl text-[0.95rem] leading-relaxed text-text-muted sm:mt-6 sm:text-lg"
+          className="mx-auto mt-5 max-w-xl text-[0.95rem] font-medium leading-relaxed text-text-primary/75 sm:mt-6 sm:text-lg"
         >
           {hero.subheadline}
         </motion.p>
@@ -77,12 +77,12 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
-          className="mt-8 flex w-full flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4"
+          className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4"
         >
-          <GradientButton href="/download" className="w-full sm:w-auto">
+          <GradientButton href="/download" className="min-w-[10.5rem] px-7">
             {hero.primaryCta}
           </GradientButton>
-          <GradientButton href="/about" variant="outline" className="w-full sm:w-auto">
+          <GradientButton href="/about" variant="outline" className="min-w-[10.5rem] px-7">
             {hero.secondaryCta}
           </GradientButton>
         </motion.div>
