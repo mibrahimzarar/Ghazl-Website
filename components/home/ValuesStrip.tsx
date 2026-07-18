@@ -5,32 +5,52 @@ import { VALUES } from "@/lib/constants";
 
 export function ValuesStrip() {
   return (
-    <section className="py-12 sm:py-16">
+    <section className="relative py-16 sm:py-20 md:py-24">
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+        aria-hidden="true"
+      />
+
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="grid grid-cols-2 gap-4 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-10"
+        <motion.ul
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1 } },
+          }}
+          className="grid grid-cols-2 gap-x-4 gap-y-8 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-3 sm:gap-y-6 md:gap-x-4"
         >
           {VALUES.map((value, index) => (
-            <div
+            <motion.li
               key={value}
-              className="flex items-center justify-center gap-6 sm:gap-10"
+              variants={{
+                hidden: { opacity: 0, y: 16 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.5, ease: "easeOut" },
+                },
+              }}
+              className="flex items-center justify-center gap-3 sm:gap-3 md:gap-4"
             >
-              <span className="font-display text-base font-medium tracking-wide text-text-muted sm:text-xl">
+              <span className="gradient-text font-display text-center text-2xl font-semibold tracking-[0.04em] sm:text-3xl md:text-4xl">
                 {value}
               </span>
               {index < VALUES.length - 1 && (
                 <span
-                  className="hidden h-1.5 w-1.5 rounded-full bg-gradient-mid sm:block"
+                  className="hidden h-2 w-2 shrink-0 rounded-full bg-gradient-mid/80 shadow-[0_0_12px_rgba(184,123,138,0.55)] sm:mx-2 sm:block md:mx-3"
                   aria-hidden="true"
                 />
               )}
-            </div>
+            </motion.li>
           ))}
-        </motion.div>
+        </motion.ul>
       </div>
     </section>
   );

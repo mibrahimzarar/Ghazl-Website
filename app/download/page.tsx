@@ -2,7 +2,6 @@ import { PageShell } from "@/components/layout/PageShell";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { StoreBadges } from "@/components/download/StoreBadges";
-import { PricingCards } from "@/components/download/PricingCards";
 import { downloadContent } from "@/lib/content";
 
 export default function DownloadPage() {
@@ -13,14 +12,6 @@ export default function DownloadPage() {
     >
       <div className="space-y-16 sm:space-y-24">
         <StoreBadges />
-
-        <section>
-          <SectionHeading
-            title={downloadContent.pricing.title}
-            subtitle={downloadContent.pricing.subtitle}
-          />
-          <PricingCards />
-        </section>
 
         <section>
           <SectionHeading title={downloadContent.faq.title} />

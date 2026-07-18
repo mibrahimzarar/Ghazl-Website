@@ -104,6 +104,56 @@ body {
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.55));
 }
 
+/* Layered metallic Arabic wordmark — room for zabar/tashkeel above letters */
+.hero-arabic {
+  position: relative;
+  display: inline-block;
+  font-weight: 700;
+  line-height: 1.55;
+  padding-block: 0.06em 0.08em;
+  overflow: visible;
+}
+
+.hero-arabic__shade,
+.hero-arabic__face {
+  display: block;
+}
+
+.hero-arabic__shade {
+  position: absolute;
+  inset: 0;
+  color: transparent;
+  text-shadow:
+    0 1px 0 rgba(60, 36, 28, 0.4),
+    0 2px 1px rgba(30, 18, 14, 0.28),
+    0 4px 10px rgba(0, 0, 0, 0.22);
+  user-select: none;
+  pointer-events: none;
+}
+
+.hero-arabic__face {
+  position: relative;
+  background: linear-gradient(
+    165deg,
+    #fff4e4 0%,
+    #f0d2a0 22%,
+    #d4a574 48%,
+    #c9a96e 68%,
+    #a67c52 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .hero-arabic__face {
+    color: var(--gold);
+    -webkit-text-fill-color: unset;
+    background: none;
+  }
+}
+
 .gradient-border {
   position: relative;
   background: rgba(28, 28, 36, 0.55);

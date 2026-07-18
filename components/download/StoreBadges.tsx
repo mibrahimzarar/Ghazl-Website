@@ -18,7 +18,7 @@ export function StoreBadges() {
               alt="Ghazl app preview"
               width={120}
               height={120}
-              className="mb-5 h-24 w-24 object-contain drop-shadow-[0_8px_24px_rgba(107,78,140,0.4)] sm:mb-6 sm:h-28 sm:w-28"
+              className="mb-5 h-24 w-24 bg-transparent object-contain sm:mb-6 sm:h-28 sm:w-28"
             />
             <p className="text-center text-sm text-text-muted">
               {downloadContent.comingSoon}
@@ -48,7 +48,7 @@ export function StoreBadges() {
           className="btn-glass flex min-h-12 w-full items-center justify-center gap-3 rounded-xl px-6 py-3 font-semibold sm:w-auto"
         >
           <svg viewBox="0 0 24 24" className="h-7 w-7 shrink-0 fill-current" aria-hidden="true">
-            <path d="M3.609 1.814L13.792 12 3.61 22.186a1.004 1.004 0 01-.395-.793V2.607a1.004 1.004 0 01.394-.793zm2.633 20.452l9.446-9.446-2.645-2.645-6.801 12.091zm11.916-9.446l2.645 2.645L6.842 22.186l9.316-9.376zm-2.645-2.645l2.645-2.645 3.801 2.138a1 1 0 010 1.742l-3.801 2.138-2.645-2.645L13.792 12l-2.279-2.277z" />
+            <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734c0-.372.214-.693.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.637 1.49a.82.82 0 010 1.423l-2.637 1.49-2.465-2.465 2.465-2.465zM5.864 2.658L16.802 8.99l-2.302 2.302-8.636-8.634z" />
           </svg>
           <div className="text-left">
             <p className="text-[10px] leading-none text-text-muted">Get it on</p>

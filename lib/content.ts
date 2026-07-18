@@ -5,7 +5,7 @@ export const homeContent = {
     headline: "Two Threads, One Beautiful Story",
     subheadline:
       "A halal marriage app for Muslims seeking nikah with sincerity, respect, and intention — not casual dating.",
-    primaryCta: "Download Ghazl",
+    primaryCta: "Download Ghazl App",
     secondaryCta: "Learn More",
   },
   features: {
@@ -125,11 +125,6 @@ export const downloadContent = {
   title: "Download Ghazl",
   subtitle: "Available on iOS and Android. Your journey begins with a single tap.",
   comingSoon: "App store links coming soon",
-  pricing: {
-    title: "Choose Your Path",
-    subtitle:
-      "Start free and upgrade when you're ready to deepen your search.",
-  },
   faq: {
     title: "Frequently Asked Questions",
     items: [
