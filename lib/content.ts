@@ -8,6 +8,27 @@ export const homeContent = {
     primaryCta: "Download Ghazl App",
     secondaryCta: "Learn More",
   },
+  purpose: {
+    title: "Built with Intention, Woven with Faith",
+    subtitle: "Ghazl is not a dating app. It is a dedicated space designed for Muslims seeking a sincere path to nikah.",
+    items: [
+      {
+        title: "Islamic Integrity",
+        description: "Our features are designed to preserve Islamic values. We facilitate dignified connections without the superficial swiping game.",
+        icon: "shield" as const,
+      },
+      {
+        title: "Absolute Privacy Control",
+        description: "Your information is sacred. Complete control over photo visibility and personal details keeps you safe and secure.",
+        icon: "lock" as const,
+      },
+      {
+        title: "Sincere Intentions Only",
+        description: "We verify and moderate our community to ensure every user is serious about marriage, removing anyone looking for casual dating.",
+        icon: "checkCircle" as const,
+      },
+    ],
+  },
   features: {
     title: "Built for Marriage, Not Moments",
     subtitle:
