@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Amiri, Manrope } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { SiteChrome } from "@/components/layout/SiteChrome";
 import { GrainOverlay } from "@/components/effects/GrainOverlay";
 import { SITE } from "@/lib/constants";
 import "./globals.css";
@@ -62,9 +63,9 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-bg-deep font-body text-text-primary">
         <GrainOverlay />
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <SiteChrome navbar={<Navbar />} footer={<Footer />}>
+          {children}
+        </SiteChrome>
       </body>
     </html>
   );
