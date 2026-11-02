@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
 type SiteChromeProps = {
   navbar: ReactNode;
@@ -12,6 +12,14 @@ type SiteChromeProps = {
 export function SiteChrome({ navbar, footer, children }: SiteChromeProps) {
   const pathname = usePathname();
   const bare = pathname.startsWith("/wali");
+
+  useEffect(() => {
+    if (!bare) return;
+    document.body.classList.add("wali-portal");
+    return () => {
+      document.body.classList.remove("wali-portal");
+    };
+  }, [bare]);
 
   return (
     <>

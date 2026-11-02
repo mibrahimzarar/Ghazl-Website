@@ -418,6 +418,14 @@ body {
   transform: translateY(1px);
 }
 
+body.wali-portal {
+  background: #f3efe8;
+}
+
+body.wali-portal .grain-overlay {
+  display: none;
+}
+
 .grain-overlay {
   pointer-events: none;
   position: fixed;

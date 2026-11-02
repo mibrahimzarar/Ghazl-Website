@@ -26,6 +26,7 @@ export type WaliChaperoneView = {
     marriage_timeline: string | null;
     is_verified: boolean;
   };
+  suitor_profile: Record<string, unknown> | null;
   messages: WaliChaperoneMessage[];
 };
 
@@ -100,48 +101,116 @@ async function callRpc<T>(
   return { data, error: null };
 }
 
+export type WaliLinkState = "invalid" | "ready" | "locked" | "unavailable";
+
+export function waliAccessErrorMessage(error: string | null | undefined): string {
+  if (error === "wrong_code") return "That code is not right.";
+  if (error === "locked") return "Too many tries. Wait a few minutes and try again.";
+  if (error === "invalid") return "This Wali link was not found or has been revoked.";
+  return error?.trim() || "This Wali link could not be opened.";
+}
+
+function readGate(data: unknown): { ok: boolean; error: string | null } {
+  if (!data || typeof data !== "object") {
+    return { ok: false, error: "invalid" };
+  }
+  const gate = data as { ok?: boolean; error?: string };
+  if (gate.ok === false) return { ok: false, error: gate.error ?? "invalid" };
+  if (gate.ok === true) return { ok: true, error: null };
+  return { ok: false, error: "invalid" };
+}
+
+export async function fetchWaliLinkStatus(token: string): Promise<WaliLinkState> {
+  const trimmed = token.trim();
+  if (trimmed.length < 16) return "invalid";
+  const result = await callRpc<{ state?: string }>("wali_link_status", {
+    p_token: trimmed,
+  });
+  if (result.error || !result.data?.state) return "unavailable";
+  if (
+    result.data.state === "invalid" ||
+    result.data.state === "ready" ||
+    result.data.state === "locked"
+  ) {
+    return result.data.state;
+  }
+  return "invalid";
+}
+
 export async function fetchWaliChaperoneView(
   token: string,
+  accessCode: string,
 ): Promise<{ view: WaliChaperoneView | null; error: string | null }> {
   const trimmed = token.trim();
-  if (trimmed.length < 16) {
-    return { view: null, error: "This Wali link is not valid." };
+  const code = accessCode.trim();
+  if (trimmed.length < 16 || code.length !== 6) {
+    return { view: null, error: waliAccessErrorMessage("invalid") };
   }
 
-  const result = await callRpc<WaliChaperoneView>(
+  const result = await callRpc<WaliChaperoneView & { ok?: boolean; error?: string }>(
     "get_wali_chaperone_view",
-    { p_token: trimmed },
+    { p_token: trimmed, p_code: code },
   );
 
   if (result.error) return { view: null, error: result.error };
-  if (!result.data) {
-    return {
-      view: null,
-      error: "This Wali link was not found or has been revoked.",
-    };
+  const gate = readGate(result.data);
+  if (!gate.ok || !result.data) {
+    return { view: null, error: waliAccessErrorMessage(gate.error) };
   }
 
-  return { view: result.data, error: null };
+  return {
+    view: {
+      ...result.data,
+      suitor_profile: result.data.suitor_profile ?? null,
+    },
+    error: null,
+  };
 }
 
 export async function recordWaliBlessing(
   token: string,
+  accessCode: string,
 ): Promise<{ success: boolean; error: string | null }> {
   const trimmed = token.trim();
-  if (trimmed.length < 16) {
-    return { success: false, error: "This Wali link is not valid." };
+  const code = accessCode.trim();
+  if (trimmed.length < 16 || code.length !== 6) {
+    return { success: false, error: waliAccessErrorMessage("invalid") };
   }
 
-  const result = await callRpc<boolean>("wali_record_blessing", {
+  const result = await callRpc<{ ok?: boolean; error?: string }>("wali_record_blessing", {
     p_token: trimmed,
+    p_code: code,
   });
-
-  if (result.error || !result.data) {
+  const gate = readGate(result.data);
+  if (result.error || !gate.ok) {
     return {
       success: false,
-      error: result.error ?? "Could not record the blessing.",
+      error: result.error ?? waliAccessErrorMessage(gate.error),
     };
   }
+  return { success: true, error: null };
+}
 
+export async function revokeWaliBlessing(
+  token: string,
+  accessCode: string,
+): Promise<{ success: boolean; error: string | null }> {
+  const trimmed = token.trim();
+  const code = accessCode.trim();
+  if (trimmed.length < 16 || code.length !== 6) {
+    return { success: false, error: waliAccessErrorMessage("invalid") };
+  }
+
+  const result = await callRpc<{ ok?: boolean; error?: string }>("wali_revoke_blessing", {
+    p_token: trimmed,
+    p_code: code,
+  });
+  const gate = readGate(result.data);
+  if (result.error || !gate.ok) {
+    return {
+      success: false,
+      error: result.error ?? waliAccessErrorMessage(gate.error),
+    };
+  }
   return { success: true, error: null };
 }
