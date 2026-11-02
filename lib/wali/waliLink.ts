@@ -1,11 +1,11 @@
-export type WaliChaperoneMessage = {
+export type WaliLinkMessage = {
   id: string;
   sender_role: "woman" | "suitor";
   body: string;
   created_at: string;
 };
 
-export type WaliChaperoneView = {
+export type WaliLinkView = {
   conversation_id: string;
   wali_blessing_at: string | null;
   woman: {
@@ -27,12 +27,12 @@ export type WaliChaperoneView = {
     is_verified: boolean;
   };
   suitor_profile: Record<string, unknown> | null;
-  messages: WaliChaperoneMessage[];
+  messages: WaliLinkMessage[];
 };
 
 export type SuitorFact = { label: string; value: string };
 
-export function buildSuitorFacts(view: WaliChaperoneView): SuitorFact[] {
+export function buildSuitorFacts(view: WaliLinkView): SuitorFact[] {
   const suitor = view.suitor;
   const location = [suitor.city, suitor.country].filter(Boolean).join(", ");
   const facts: Array<SuitorFact | null> = [
@@ -137,17 +137,17 @@ export async function fetchWaliLinkStatus(token: string): Promise<WaliLinkState>
   return "invalid";
 }
 
-export async function fetchWaliChaperoneView(
+export async function fetchWaliLinkView(
   token: string,
   accessCode: string,
-): Promise<{ view: WaliChaperoneView | null; error: string | null }> {
+): Promise<{ view: WaliLinkView | null; error: string | null }> {
   const trimmed = token.trim();
   const code = accessCode.trim();
   if (trimmed.length < 16 || code.length !== 6) {
     return { view: null, error: waliAccessErrorMessage("invalid") };
   }
 
-  const result = await callRpc<WaliChaperoneView & { ok?: boolean; error?: string }>(
+  const result = await callRpc<WaliLinkView & { ok?: boolean; error?: string }>(
     "get_wali_chaperone_view",
     { p_token: trimmed, p_code: code },
   );

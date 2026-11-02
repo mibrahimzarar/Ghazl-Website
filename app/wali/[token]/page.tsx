@@ -8,11 +8,11 @@ type PageProps = {
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Wali Chaperone — Ghazl",
+  title: "Wali Link — Ghazl",
   robots: { index: false, follow: false },
 };
 
-export default async function WaliChaperonePage({ params }: PageProps) {
+export default async function WaliLinkPage({ params }: PageProps) {
   const { token } = await params;
   return <WaliAccessGate token={token} />;
 }

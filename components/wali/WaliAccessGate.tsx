@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { readWaliLinkStatus, unlockWaliPortal } from "@/app/wali/actions";
 import { WaliUnlocked } from "@/components/wali/WaliUnlocked";
-import type { WaliChaperoneView, WaliLinkState } from "@/lib/wali/chaperone";
+import type { WaliLinkView, WaliLinkState } from "@/lib/wali/waliLink";
 import type { WaliDiscoverCard, WaliSection } from "@/lib/wali/profileView";
 
 type WaliAccessGateProps = {
@@ -14,7 +14,7 @@ export function WaliAccessGate({ token }: WaliAccessGateProps) {
   const [status, setStatus] = useState<WaliLinkState | "loading">("loading");
   const [code, setCode] = useState("");
   const [acceptedCode, setAcceptedCode] = useState<string | null>(null);
-  const [view, setView] = useState<WaliChaperoneView | null>(null);
+  const [view, setView] = useState<WaliLinkView | null>(null);
   const [card, setCard] = useState<WaliDiscoverCard | null>(null);
   const [sections, setSections] = useState<WaliSection[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -80,7 +80,7 @@ export function WaliAccessGate({ token }: WaliAccessGateProps) {
           className="mt-2 text-center text-2xl"
           style={{ fontFamily: "var(--font-wali-serif), serif" }}
         >
-          {invalid ? "Chaperone link unavailable" : "Enter the code your ward gave you"}
+          {invalid ? "Wali link unavailable" : "Enter the code your ward gave you"}
         </h1>
         <p className="mt-2 text-center text-sm leading-6" style={{ color: "#6B7280" }}>
           {invalid

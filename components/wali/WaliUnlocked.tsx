@@ -1,5 +1,5 @@
 import { BlessingButton } from "@/components/wali/BlessingButton";
-import type { WaliChaperoneView } from "@/lib/wali/chaperone";
+import type { WaliLinkView } from "@/lib/wali/waliLink";
 import {
   SECTION_TONES,
   type WaliDiscoverCard,
@@ -9,7 +9,7 @@ import {
 type WaliUnlockedProps = {
   token: string;
   code: string;
-  view: WaliChaperoneView;
+  view: WaliLinkView;
   card: WaliDiscoverCard;
   sections: WaliSection[];
 };
@@ -111,7 +111,7 @@ export function WaliUnlocked({ token, code, view, card, sections }: WaliUnlocked
   return (
     <div className="mx-auto w-full max-w-[440px] px-4 py-6 sm:py-10">
       <p className="text-center text-[11px] font-medium tracking-[0.2em]" style={{ color: "#1B6B4A" }}>
-        GHAZL · WALI CHAPERONE
+        GHAZL · WALI LINK
       </p>
       <p className="mt-2 text-center text-sm leading-6" style={{ color: "#6B7280" }}>
         {wardName}&apos;s conversation with {card.displayName}, shared with {guardian} ({relationship}).

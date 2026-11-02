@@ -1,13 +1,13 @@
 "use server";
 
 import {
-  fetchWaliChaperoneView,
+  fetchWaliLinkView,
   fetchWaliLinkStatus,
   recordWaliBlessing,
   revokeWaliBlessing,
-  type WaliChaperoneView,
+  type WaliLinkView,
   type WaliLinkState,
-} from "@/lib/wali/chaperone";
+} from "@/lib/wali/waliLink";
 import {
   buildWaliDiscoverCard,
   buildWaliProfileSections,
@@ -23,12 +23,12 @@ export async function unlockWaliPortal(
   token: string,
   code: string,
 ): Promise<{
-  view: WaliChaperoneView | null;
+  view: WaliLinkView | null;
   card: WaliDiscoverCard | null;
   sections: WaliSection[];
   error: string | null;
 }> {
-  const result = await fetchWaliChaperoneView(token, code);
+  const result = await fetchWaliLinkView(token, code);
   if (!result.view) {
     return { view: null, card: null, sections: [], error: result.error };
   }
